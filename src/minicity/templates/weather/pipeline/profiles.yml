@@ -1,0 +1,4 @@
+weather:
+  target: dev
+  outputs:
+    dev: {kind: local, path: ../out}
