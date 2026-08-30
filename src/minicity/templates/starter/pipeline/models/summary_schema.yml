@@ -1,0 +1,6 @@
+version: 2
+models:
+  - name: summary
+    columns:
+      - name: record_count
+        tests: [not_null]

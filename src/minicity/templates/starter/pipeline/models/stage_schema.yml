@@ -1,0 +1,6 @@
+version: 2
+models:
+  - name: stage_records
+    columns:
+      - name: record_id
+        tests: [unique, not_null]

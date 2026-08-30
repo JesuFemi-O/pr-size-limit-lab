@@ -1,0 +1,4 @@
+name: starter_pipeline
+steps:
+  - stage
+  - summarize
