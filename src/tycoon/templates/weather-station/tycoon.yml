@@ -1,0 +1,5 @@
+name: weather-station
+version: 0.1.0
+source:
+  kind: rest
+  base_url: https://api.example.com/weather

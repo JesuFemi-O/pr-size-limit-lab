@@ -1,0 +1,4 @@
+weather_station:
+  target: dev
+  outputs:
+    dev: {type: duckdb, path: ../warehouse.duckdb}
