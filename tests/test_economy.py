@@ -20,3 +20,7 @@ def test_spend_rejects_overdraft():
         pass
     else:
         raise AssertionError("expected ValueError")
+
+def test_break_even_turns():
+    from minicity.economy import break_even_turns
+    assert break_even_turns(300, 100) == 3
