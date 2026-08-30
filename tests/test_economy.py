@@ -20,3 +20,5 @@ def test_spend_rejects_overdraft():
         pass
     else:
         raise AssertionError("expected ValueError")
+
+# covered by v0.2.0 release verification

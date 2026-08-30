@@ -30,3 +30,5 @@ def get(name: str) -> Building:
 
 def names() -> list[str]:
     return sorted(CATALOGUE)
+
+# v0.2.0 release touch

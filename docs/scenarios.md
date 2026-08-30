@@ -17,3 +17,5 @@ PR that exercises one path through `scripts/pr_size_check.py`.
 The last two show the switch: `demo/blocked-under-fail` is stacked on
 `chore/require-pr-size`, so its check reads `mode: fail` and blocks, while
 every PR against `main` stays non-blocking until the flip merges.
+
+<!-- reviewed for v0.2.0 -->

@@ -37,3 +37,5 @@ class City:
             "treasury": self.economy.treasury,
             "buildings": len(self.placed),
         }
+
+# v0.2.0 release touch

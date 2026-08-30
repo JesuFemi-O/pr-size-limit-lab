@@ -32,3 +32,5 @@ The rule under test is written up in [`docs/proposal.md`](docs/proposal.md).
 Flipping that one line (or setting the `PR_SIZE_MODE` repo variable) is the
 entire "make it required" step. [`docs/scenarios.md`](docs/scenarios.md)
 lists the PRs that exercise each path.
+
+<!-- v0.2.0 -->
