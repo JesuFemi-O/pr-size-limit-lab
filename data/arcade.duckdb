@@ -1,0 +1,5 @@
+DUCKDB-FIXTURE
+This stands in for a binary DuckDB file so the exclusion glob (*.duckdb) has
+something tracked to match. Real builds regenerate this from source data.
+seed=1
+rows=0

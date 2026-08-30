@@ -1,0 +1,20 @@
+[project]
+name = "tycoon-city"
+version = "0.1.0"
+description = "Toy city simulation CLI, used as a PR-size-limit test fixture"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+tycoon-city = "tycoon_city.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tycoon_city"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

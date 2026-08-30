@@ -1,0 +1,80 @@
+name: PR Size Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    env:
+      MAX_FILES: "8"
+      MAX_LINES: "300"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Measure diff against the merge base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          # Files that don't count toward the limits (generated / vendored).
+          is_excluded() {
+            case "$1" in
+              uv.lock)         return 0 ;;
+              *.duckdb)        return 0 ;;
+              site/*)          return 0 ;;
+              dist/*)          return 0 ;;
+              *_generated.*)   return 0 ;;
+              *)               return 1 ;;
+            esac
+          }
+
+          merge_base="$(git merge-base "$BASE_SHA" "$HEAD_SHA")"
+
+          files=0
+          lines=0
+          {
+            echo "### PR size check"
+            echo
+            echo "| file | +add | -del | counted |"
+            echo "| --- | ---: | ---: | :---: |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          while IFS=$'\t' read -r add del path; do
+            [ -z "${path:-}" ] && continue
+            [ "$add" = "-" ] && add=0
+            [ "$del" = "-" ] && del=0
+            if is_excluded "$path"; then
+              echo "| \`$path\` | $add | $del | – |" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            files=$((files + 1))
+            lines=$((lines + add + del))
+            echo "| \`$path\` | $add | $del | ✓ |" >> "$GITHUB_STEP_SUMMARY"
+          done < <(git diff --numstat "$merge_base" "$HEAD_SHA")
+
+          {
+            echo
+            echo "**files changed (counted): $files / $MAX_FILES**"
+            echo
+            echo "**lines changed (counted): $lines / $MAX_LINES**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          fail=0
+          if [ "$files" -gt "$MAX_FILES" ]; then
+            echo "::error::PR changes $files files (limit $MAX_FILES). Split it into a stack of smaller PRs."
+            fail=1
+          fi
+          if [ "$lines" -gt "$MAX_LINES" ]; then
+            echo "::error::PR changes $lines lines (limit $MAX_LINES). Split it into a stack of smaller PRs."
+            fail=1
+          fi
+          exit $fail

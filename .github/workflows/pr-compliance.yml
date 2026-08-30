@@ -1,0 +1,25 @@
+name: PR Compliance
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  issues: read
+
+jobs:
+  pr-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mtfoley/pr-compliance-action@main
+        with:
+          # This lab opens its test PRs from the repo owner's account.
+          # The action skips owners/org-members by default, which would make
+          # every check a no-op here, so we force the checks to run.
+          ignore-team-members: false
+          # Warn, don't auto-close, on a missing linked issue...
+          body-auto-close: false
+          # ...but still fail the check so the red X is visible.
+          body-fail: true
+          title-check-enable: true
