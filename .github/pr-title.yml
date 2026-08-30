@@ -5,7 +5,7 @@
 #   warn  - report violations (job summary + PR comment + annotations) but never
 #           block the merge. The check stays green.
 #   fail  - a violation fails the check and blocks the merge.
-mode: warn
+mode: fail
 
 # Format: type(scope): description
 
