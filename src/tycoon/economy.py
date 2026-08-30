@@ -29,3 +29,8 @@ class Economy:
         if cost > self.treasury:
             raise ValueError("insufficient funds")
         self.treasury -= cost
+
+def break_even_turns(cost: int, per_turn: int) -> int:
+    if per_turn <= 0:
+        return -1
+    return -(-cost // per_turn)

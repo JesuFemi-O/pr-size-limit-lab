@@ -43,3 +43,7 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+def _one_line_summary(city: City) -> str:
+    s = city.summary()
+    return f"{s['name']}: pop {s['population']}, treasury {s['treasury']}"

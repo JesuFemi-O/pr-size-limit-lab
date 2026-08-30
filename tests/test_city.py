@@ -23,3 +23,8 @@ def test_summary_keys():
         "treasury",
         "buildings",
     }
+
+def test_net_worth_includes_buildings():
+    c = City(treasury=1000)
+    c.build("house")
+    assert c.net_worth() == 1000

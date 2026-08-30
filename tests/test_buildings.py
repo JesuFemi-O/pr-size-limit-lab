@@ -14,3 +14,6 @@ def test_get_known():
 def test_get_unknown():
     with pytest.raises(ValueError):
         buildings.get("castle")
+
+def test_costliest_is_factory():
+    assert buildings.costliest() == "factory"
