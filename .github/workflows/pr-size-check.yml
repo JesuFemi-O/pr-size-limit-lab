@@ -68,6 +68,9 @@ jobs:
             echo "**lines changed (counted): $lines / $MAX_LINES**"
           } >> "$GITHUB_STEP_SUMMARY"
 
+          echo "files changed (counted): $files / $MAX_FILES"
+          echo "lines changed (counted): $lines / $MAX_LINES"
+
           fail=0
           if [ "$files" -gt "$MAX_FILES" ]; then
             echo "::error::PR changes $files files (limit $MAX_FILES). Split it into a stack of smaller PRs."
