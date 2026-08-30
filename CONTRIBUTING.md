@@ -10,3 +10,5 @@ This is a test fixture, but the rules it enforces are real:
    `uv.lock`, `*.duckdb`, `site/`, `dist/`, `*_generated.*`.
 
 If a change needs more than that, split it into a stack of smaller PRs.
+
+<!-- building data lives in src/tycoon_city/catalogue/ -->

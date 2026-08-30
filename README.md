@@ -26,3 +26,5 @@ have something plausible to change.
   after excluding `uv.lock`, `*.duckdb`, `site/`, `dist/`, `*_generated.*`
 
 See `docs/scenarios.md` for the branches that exercise each rule.
+
+<!-- see src/tycoon_city/catalogue/ for per-category building data -->

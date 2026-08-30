@@ -13,3 +13,8 @@ cli.py  ->  city.py  ->  economy.py  ->  buildings.py
 
 `_version_generated.py` is written by the release tooling and must never be
 hand-edited.
+
+## Catalogue package
+
+`buildings.py` is now a thin facade over `tycoon_city.catalogue`, which
+holds one small module per planning category.
