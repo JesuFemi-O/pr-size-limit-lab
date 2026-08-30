@@ -1,0 +1,63 @@
+name: PR Title
+
+# Implements the title convention in docs/proposal-title.md:
+#   type(scope): description
+# where feat/fix/refactor/test/docs must carry a gh-<N> or PTC-<N> scope,
+# chore/ci may use a free-form scope, the description has no trailing period,
+# and the whole title is <= 100 characters. Release-promotion branches are
+# exempt.
+#
+# Behaviour (warn vs fail) is controlled by `mode:` in .github/pr-title.yml.
+# The optional PR_TITLE_MODE repository variable overrides it without a commit.
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-title-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  title:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PR title check
+        id: check
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_TITLE_MODE: ${{ vars.PR_TITLE_MODE }}
+          PR_TITLE_REPORT_FILE: pr-title-report.md
+        run: python scripts/pr_title_check.py
+
+      - name: Upsert PR comment
+        if: always() && hashFiles('pr-title-report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          marker='<!-- pr-title-check -->'
+          { printf '%s\n\n' "$marker"; cat pr-title-report.md; } > body.md
+          existing=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" \
+            --jq "map(select(.body | startswith(\"$marker\"))) | .[0].id // empty")
+          if [ -n "$existing" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$existing" \
+              -F body=@body.md >/dev/null
+            echo "updated comment $existing"
+          else
+            gh api -X POST "repos/$REPO/issues/$PR_NUMBER/comments" \
+              -F body=@body.md >/dev/null
+            echo "created comment"
+          fi
