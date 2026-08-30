@@ -1,0 +1,4 @@
+# csv-import
+
+Starter template: load a local CSV, stage it, build one mart.
+Run `tycoon init --template csv-import` then `tycoon build`.

@@ -1,0 +1,6 @@
+version: 2
+models:
+  - name: fct_widget_summary
+    columns:
+      - name: widget_count
+        tests: [not_null]

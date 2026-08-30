@@ -1,0 +1,4 @@
+name: csv_import
+profile: csv_import
+version: 0.1.0
+model-paths: ["models"]

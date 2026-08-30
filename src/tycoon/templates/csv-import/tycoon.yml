@@ -1,0 +1,8 @@
+name: csv-import
+version: 0.1.0
+source:
+  kind: csv
+  path: data/input/widgets.csv
+warehouse:
+  kind: duckdb
+  path: warehouse.duckdb

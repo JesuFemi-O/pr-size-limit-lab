@@ -1,0 +1,62 @@
+name: PR Size
+
+# Implements the size limit described in docs/proposal.md: at most 8 counted
+# files per PR, template bundles and release-promotion branches exempt, plus
+# a 300-line cap on newly added src/**/*.py files.
+#
+# Behaviour (warn vs fail) is controlled by `mode:` in .github/pr-size.yml.
+# The optional PR_SIZE_MODE repository variable overrides it without a commit.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-size-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run PR size check
+        id: check
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_SIZE_MODE: ${{ vars.PR_SIZE_MODE }}
+          PR_SIZE_REPORT_FILE: pr-size-report.md
+        run: python scripts/pr_size_check.py
+
+      - name: Upsert PR comment
+        if: always() && hashFiles('pr-size-report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          marker='<!-- pr-size-check -->'
+          { printf '%s\n\n' "$marker"; cat pr-size-report.md; } > body.md
+          existing=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" \
+            --jq "map(select(.body | startswith(\"$marker\"))) | .[0].id // empty")
+          if [ -n "$existing" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$existing" \
+              -F body=@body.md >/dev/null
+            echo "updated comment $existing"
+          else
+            gh api -X POST "repos/$REPO/issues/$PR_NUMBER/comments" \
+              -F body=@body.md >/dev/null
+            echo "created comment"
+          fi
