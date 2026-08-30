@@ -30,3 +30,23 @@ def get(name: str) -> Building:
 
 def names() -> list[str]:
     return sorted(CATALOGUE)
+
+
+CATEGORIES: dict[str, str] = {
+    "house": "residential",
+    "shop": "commercial",
+    "arcade": "commercial",
+    "factory": "industrial",
+    "park": "civic",
+}
+
+
+def category(name: str) -> str:
+    """Return the planning category for a building."""
+    get(name)
+    return CATEGORIES.get(name, "misc")
+
+
+def describe(name: str) -> str:
+    b = get(name)
+    return f"{b.name} ({category(name)}): cost {b.cost}, upkeep {b.upkeep}"

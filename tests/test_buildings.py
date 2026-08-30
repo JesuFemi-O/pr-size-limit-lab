@@ -14,3 +14,16 @@ def test_get_known():
 def test_get_unknown():
     with pytest.raises(ValueError):
         buildings.get("castle")
+
+
+def test_category_known():
+    assert buildings.category("factory") == "industrial"
+
+
+def test_category_unknown_raises():
+    with pytest.raises(ValueError):
+        buildings.category("castle")
+
+
+def test_describe_mentions_category():
+    assert "commercial" in buildings.describe("shop")

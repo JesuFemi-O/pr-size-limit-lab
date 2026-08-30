@@ -20,3 +20,13 @@ def test_spend_rejects_overdraft():
         pass
     else:
         raise AssertionError("expected ValueError")
+
+
+def test_projected_balance():
+    econ = Economy(treasury=100)
+    assert econ.projected_balance(per_turn_delta=10, turns=3) == 130
+
+
+def test_is_solvent_false_when_bleeding():
+    econ = Economy(treasury=10)
+    assert econ.is_solvent(per_turn_delta=-5, turns=5) is False

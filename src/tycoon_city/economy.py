@@ -29,3 +29,11 @@ class Economy:
         if cost > self.treasury:
             raise ValueError("insufficient funds")
         self.treasury -= cost
+
+
+    def projected_balance(self, per_turn_delta: int, turns: int) -> int:
+        """Treasury after `turns` more turns at a fixed per-turn delta."""
+        return self.treasury + per_turn_delta * turns
+
+    def is_solvent(self, per_turn_delta: int, turns: int = 5) -> bool:
+        return self.projected_balance(per_turn_delta, turns) >= 0

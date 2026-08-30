@@ -37,3 +37,20 @@ class City:
             "treasury": self.economy.treasury,
             "buildings": len(self.placed),
         }
+
+
+    @property
+    def happiness(self) -> int:
+        """Rough happiness score: parks help, factories hurt."""
+        score = 50
+        score += 5 * self.placed.count("park")
+        score += 3 * self.placed.count("arcade")
+        score -= 4 * self.placed.count("factory")
+        return max(0, min(100, score))
+
+    def report(self) -> list[str]:
+        lines = [f"{self.name} — turn {self.turn}"]
+        for key, value in self.summary().items():
+            lines.append(f"  {key}: {value}")
+        lines.append(f"  happiness: {self.happiness}")
+        return lines

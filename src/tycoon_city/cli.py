@@ -19,6 +19,7 @@ def _build_parser() -> argparse.ArgumentParser:
         help=f"place a building (one of: {', '.join(buildings.names())})",
     )
     parser.add_argument("--turns", type=int, default=3, help="turns to simulate")
+    parser.add_argument("--report", action="store_true", help="print a full report")
     return parser
 
 
@@ -36,10 +37,18 @@ def main(argv: list[str] | None = None) -> int:
         delta = city.advance()
         print(f"turn {city.turn}: treasury {city.economy.treasury} ({delta:+d})")
 
-    for key, value in city.summary().items():
-        print(f"{key:>12}: {value}")
+    if args.report:
+        _print_report(city)
+    else:
+        for key, value in city.summary().items():
+            print(f"{key:>12}: {value}")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def _print_report(city: City) -> None:
+    for line in city.report():
+        print(line)
