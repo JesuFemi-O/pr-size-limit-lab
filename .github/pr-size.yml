@@ -6,7 +6,7 @@
 #           block the merge. The check stays green.
 #   fail  - a violation fails the check and blocks the merge.
 # Flip this one line to move from the rollout/warning phase to enforcement.
-mode: warn
+mode: fail
 
 # Maximum number of counted files a single PR may change.
 max_files: 8
