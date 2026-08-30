@@ -3,20 +3,78 @@ requires-python = ">=3.11"
 
 [[package]]
 name = "tycoon-city"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "." }
+dependencies = [
+    { name = "pytest" },
+    { name = "rich" },
+]
 
 [[package]]
 name = "iniconfig"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/iniconfig-2.0.0.tar.gz", hash = "sha256:0000000000000000000000000000000000000000000000000000000000000000" }
+sdist = { url = "https://files.pythonhosted.org/packages/iniconfig-2.0.0.tar.gz", hash = "sha256:2308640702278290924000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:2308640702278290924000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "packaging"
+version = "24.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/packaging-24.1.tar.gz", hash = "sha256:5557772616452327609000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/packaging-24.1-py3-none-any.whl", hash = "sha256:5557772616452327609000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "pluggy"
+version = "1.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/pluggy-1.5.0.tar.gz", hash = "sha256:8707620053010179110000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/pluggy-1.5.0-py3-none-any.whl", hash = "sha256:8707620053010179110000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "pygments"
+version = "2.18.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/pygments-2.18.0.tar.gz", hash = "sha256:4987064131490290691000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/pygments-2.18.0-py3-none-any.whl", hash = "sha256:4987064131490290691000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "markdown-it-py"
+version = "3.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mdurl" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/markdown-it-py-3.0.0.tar.gz", hash = "sha256:1196370463184140373000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/markdown-it-py-3.0.0-py3-none-any.whl", hash = "sha256:1196370463184140373000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "mdurl"
+version = "0.1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/mdurl-0.1.2.tar.gz", hash = "sha256:8732698083396612344000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:8732698083396612344000000000000000000000000000000000000000000000" }]
+
+[[package]]
+name = "rich"
+version = "13.8.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown-it-py" },
+    { name = "pygments" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/rich-13.8.1.tar.gz", hash = "sha256:7110360142352531944000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/rich-13.8.1-py3-none-any.whl", hash = "sha256:7110360142352531944000000000000000000000000000000000000000000000" }]
 
 [[package]]
 name = "pytest"
-version = "8.3.2"
+version = "8.3.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "iniconfig" },
+    { name = "packaging" },
+    { name = "pluggy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/pytest-8.3.2.tar.gz", hash = "sha256:1111111111111111111111111111111111111111111111111111111111111111" }
+sdist = { url = "https://files.pythonhosted.org/packages/pytest-8.3.3.tar.gz", hash = "sha256:3191693973997553164000000000000000000000000000000000000000000000" }
+wheels = [{ url = "https://files.pythonhosted.org/packages/pytest-8.3.3-py3-none-any.whl", hash = "sha256:3191693973997553164000000000000000000000000000000000000000000000" }]
+
