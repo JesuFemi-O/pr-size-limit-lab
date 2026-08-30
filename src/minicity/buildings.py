@@ -30,3 +30,6 @@ def get(name: str) -> Building:
 
 def names() -> list[str]:
     return sorted(CATALOGUE)
+
+def costliest() -> str:
+    return max(CATALOGUE, key=lambda n: CATALOGUE[n].cost)

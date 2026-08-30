@@ -37,3 +37,7 @@ class City:
             "treasury": self.economy.treasury,
             "buildings": len(self.placed),
         }
+
+    def net_worth(self) -> int:
+        from minicity import buildings
+        return self.economy.treasury + sum(buildings.get(n).cost for n in self.placed)
