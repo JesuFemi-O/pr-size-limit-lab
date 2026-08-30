@@ -14,3 +14,5 @@ def test_get_known():
 def test_get_unknown():
     with pytest.raises(ValueError):
         buildings.get("castle")
+
+# covered by v0.2.0 release verification

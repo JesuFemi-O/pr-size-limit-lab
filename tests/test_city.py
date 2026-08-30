@@ -23,3 +23,5 @@ def test_summary_keys():
         "treasury",
         "buildings",
     }
+
+# covered by v0.2.0 release verification

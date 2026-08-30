@@ -17,3 +17,5 @@ PR that exercises one path through `scripts/pr_size_check.py`.
 Scenarios 7 + 8 show the switch: 8 is stacked on 7, so its check reads
 `mode: fail` and blocks, while every PR against `main` stays non-blocking
 until 7 merges.
+
+<!-- reviewed for v0.2.0 -->

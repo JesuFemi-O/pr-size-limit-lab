@@ -29,3 +29,5 @@ class Economy:
         if cost > self.treasury:
             raise ValueError("insufficient funds")
         self.treasury -= cost
+
+# v0.2.0 release touch
