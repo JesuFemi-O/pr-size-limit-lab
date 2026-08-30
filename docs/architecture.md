@@ -13,3 +13,5 @@ cli.py  ->  city.py  ->  economy.py  ->  buildings.py
 
 `_version_generated.py` is written by the release tooling and must never be
 hand-edited.
+
+<!-- reviewed for v0.2.0 -->

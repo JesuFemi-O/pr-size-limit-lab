@@ -68,3 +68,5 @@ Both checks start as non-blocking **warnings** (`mode: warn`). That surfaces
 how often they trigger and which legitimate cases need a new exemption.
 Once the limits have proven useful, flip `mode: fail` to make the check
 required.
+
+<!-- reviewed for v0.2.0 -->
