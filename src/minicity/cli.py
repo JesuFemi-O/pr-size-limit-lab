@@ -36,8 +36,9 @@ def main(argv: list[str] | None = None) -> int:
         delta = city.advance()
         print(f"turn {city.turn}: treasury {city.economy.treasury} ({delta:+d})")
 
-    for key, value in city.summary().items():
-        print(f"{key:>12}: {value}")
+    from minicity.report import render_summary
+    for line in render_summary(city.summary()):
+        print(line)
     return 0
 
 
