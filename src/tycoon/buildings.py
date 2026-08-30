@@ -18,6 +18,7 @@ CATALOGUE: dict[str, Building] = {
     "factory": Building("factory", cost=600, upkeep=12, jobs=20, population=0),
     "park": Building("park", cost=150, upkeep=3, jobs=1, population=0),
     "arcade": Building("arcade", cost=400, upkeep=8, jobs=10, population=0),
+    "library": Building("library", cost=300, upkeep=6, jobs=3, population=0),
 }
 
 

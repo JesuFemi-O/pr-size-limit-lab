@@ -14,3 +14,7 @@ def test_get_known():
 def test_get_unknown():
     with pytest.raises(ValueError):
         buildings.get("castle")
+
+
+def test_library_in_catalogue():
+    assert buildings.get("library").jobs == 3
