@@ -4,20 +4,23 @@ from tycoon_city import buildings
 
 TAX_PER_CITIZEN = 3
 TAX_PER_JOB = 2
+NIGHTLIFE_BONUS_PER_ARCADE = 5
 
 
 class Economy:
     def __init__(self, treasury: int = 1000) -> None:
         self.treasury = treasury
 
-    def tax_income(self, population: int, jobs: int) -> int:
-        return population * TAX_PER_CITIZEN + jobs * TAX_PER_JOB
+    def tax_income(self, population: int, jobs: int, arcades: int = 0) -> int:
+        base = population * TAX_PER_CITIZEN + jobs * TAX_PER_JOB
+        return base + arcades * NIGHTLIFE_BONUS_PER_ARCADE
 
     def upkeep_cost(self, placed: list[str]) -> int:
         return sum(buildings.get(name).upkeep for name in placed)
 
     def tick(self, population: int, jobs: int, placed: list[str]) -> int:
-        delta = self.tax_income(population, jobs) - self.upkeep_cost(placed)
+        arcades = placed.count("arcade")
+        delta = self.tax_income(population, jobs, arcades) - self.upkeep_cost(placed)
         self.treasury += delta
         return delta
 

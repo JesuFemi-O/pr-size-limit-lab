@@ -20,3 +20,10 @@ def test_spend_rejects_overdraft():
         pass
     else:
         raise AssertionError("expected ValueError")
+
+
+def test_nightlife_bonus_applies_per_arcade():
+    econ = Economy()
+    without = econ.tax_income(population=0, jobs=0, arcades=0)
+    with_two = econ.tax_income(population=0, jobs=0, arcades=2)
+    assert with_two - without == 10
